@@ -7,10 +7,6 @@
 #include "ExecutionContext/ExecutionContext.h"
 
 
-extern int yyparse();
-extern void yy_scan_string(const char*);
-ExecutionContext* currentContext = nullptr;
-
 int main(int argc, char* argv[]) {
     // Flush after every std::cout / std::cerr
     std::cout << std::unitbuf;

@@ -33,6 +33,6 @@ add_executable(sqlite
     src/Server.cpp
     ${BISON_QueryParser_OUTPUTS}
     ${FLEX_QueryParser_OUTPUTS}
- "src/ExecutionContext/ExecutionContext.h")
+ "src/ExecutionContext/ExecutionContext.h" "src/ProcessPool/Worker.h" "src/ProcessPool/ProcessPool.h" "src/ProcessPool/ProcessPool.cpp" "src/ProcessPool/Command.h" "src/ProcessPool/Worker.cpp")
 
 target_include_directories(sqlite PRIVATE ${CMAKE_BINARY_DIR})

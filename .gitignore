@@ -53,3 +53,5 @@ vcpkg_installed
 
 build-wsl/
 build-win/
+
+.vs/

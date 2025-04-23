@@ -6,10 +6,6 @@
 
 class Command {
 public:
-	void execute(std::string command) {
-		auto& processPool = ProcessPool::getProcessPoolInstance();
-		auto* worker = processPool.acquireProcess();
-		worker->executeCommand(command);
-	}
+	void execute(std::string& command);
 };
 #endif 

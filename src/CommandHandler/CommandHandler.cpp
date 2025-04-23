@@ -1,6 +1,6 @@
 #include "CommandHandler.h"
 
-void CommandHandler::handleDbInfo(std::ifstream database_file) {
+void CommandHandler::handleDbInfo(std::ifstream& database_file) {
     //char header[100];
     //database_file.read(header, 100);
     //std::cerr << std::string(header, header + 16) << std::endl; // print the sqlite header message
@@ -15,7 +15,7 @@ void CommandHandler::handleDbInfo(std::ifstream database_file) {
     std::cout << "database page size: " << page_size << std::endl;
 }
 
-void CommandHandler::handleTables(std::ifstream database_file) {
+void CommandHandler::handleTables(std::ifstream& database_file) {
     database_file.seekg(103);
     char tables_count_bufffer[2];
     database_file.read(tables_count_bufffer, 2);

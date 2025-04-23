@@ -4,8 +4,11 @@
 #include <string>
 
 class Worker {
+private:
+	pid_t process;
 public:
-	int createProcess();
-	int executeCommand(std::string command);
+	Worker();
+	~Worker();
+	int executeCommand(const std::string& command);
 };
 #endif 

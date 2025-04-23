@@ -5,4 +5,5 @@ I am documenting my journey in the LessonsLearned folder where I will be uploadi
 reading the various db documentation documents and articles and conversing with various AIs.
 I am using ChatGPT to format and summarize my findings.
 
+Approach to using AI is to ask it clarifying questions about code samples, or to lookup how certain things were implemented but not ask it to write any code for me.
 

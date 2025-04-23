@@ -1,24 +1,41 @@
 #include <iostream>
 #include <string>
+#include <unistd.h>
+#include <sys/wait.h> 
+#include "Worker.h"
 
-extern int yyparse();
-extern void yy_scan_string(const char*);
+Worker::Worker() {
+    auto pid = fork();
+	if (pid < 0) {
+		std::cerr << "fork failed\n";
+	}
+	else {
+		process = pid;
+	}
+}
 
-class Worker {
-	int createProcess() {
+Worker::~Worker() {
+	kill(process, SIGTERM);
+	waitpid(process, nullptr, 0);
+}
 
+int Worker::executeCommand(const std::string& command) {
+	if (process == 0) {
+		const char* queryArgs[] = {
+		  "./database_engine.sh", // executable to be run
+		  "sample.db", // path to the db file
+		  command.c_str(), // command to be executed
+		  nullptr
+		};
+		execvp(queryArgs[0], const_cast<char* const*>(queryArgs));
+		std::perror("execvp failed");
+		_exit(EXIT_FAILURE);
+	}
+	else {
+		int status = 0;
+		if (waitpid(process, &status, 0) < 0)
+			return WIFEXITED(status) ? WEXITSTATUS(status) : -1;
 	}
 
-	int executeCommand(std::string command) {
-        yy_scan_string(command.c_str());
-
-        int result = yyparse();
-
-        if (result != 0) {
-            std::cerr << "Error parsing command.\n";
-            return 1;
-        }
-
-        return 0;
-	}
-};
+    return 0;
+}

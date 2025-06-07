@@ -1,0 +1,24 @@
+{
+  "version": 3,
+  "configurePresets": [
+    {
+      "name": "windows",
+      "displayName": "Build on Windows (VS2022 + vcpkg)",
+      "generator": "Visual Studio 17 2022",
+      "architecture": "x64",
+      "binaryDir": "${sourceDir}/build-win",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      }
+    },
+    {
+      "name": "wsl",
+      "displayName": "Build on WSL (Makefiles + vcpkg)",
+      "generator": "Unix Makefiles",
+      "binaryDir": "${sourceDir}/build-wsl",
+      "cacheVariables": {
+        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
+      }
+    }
+  ]
+}

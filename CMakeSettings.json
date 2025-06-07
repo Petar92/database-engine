@@ -18,6 +18,15 @@
         {
           "name": "CMAKE_CXX_COMPILER",
           "value": "cl.exe"
+        },
+        {
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "C:/Projects/database-engine/vcpkg/scripts/buildsystems/vcpkg.cmake"
+        },
+        {
+          "name": "CMAKE_TOOLCHAIN_FILE",
+          "value": "C:/Program Files/Microsoft Visual Studio/2022/Community/VC/vcpkg/scripts/buildsystems/vcpkg.cmake",
+          "type": "FILEPATH"
         }
       ]
     }

@@ -1,7 +1,7 @@
 %{
+#include <fstream>
 #include "CommandHandler.h"
-#include "ExecutionContext.h"
-extern ExecutionContext* currentContext;
+#include "FileManager.h"
 extern CommandHandler handler;
 extern int yylex();
 void yyerror(const char *s);
@@ -18,8 +18,8 @@ commands:
     ;
 
 command:
-    DBINFO { handler.handleDbInfo(currentContext->database_file); }
-    | TABLES { handler.handleTables(currentContext->database_file); }
+    DBINFO { handler.handleDbInfo((std::ifstream)getDatabaseFile("sample.db")); }
+    | TABLES { handler.handleTables((std::ifstream)getDatabaseFile("sample.db")); }
     ;
 
 %%

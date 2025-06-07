@@ -11,3 +11,7 @@
 .            { return yytext[0]; } // Unknown characters
 
 %%
+
+int yywrap() {
+    return 1;
+}

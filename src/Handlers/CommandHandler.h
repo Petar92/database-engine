@@ -1,5 +1,4 @@
-#ifndef COMMAND_HANDLER_H
-#define COMMAND_HANDLER_H
+#pragma once
 
 #include <iostream>
 
@@ -8,5 +7,3 @@ public:
     void handleDbInfo(std::ifstream& database_file);
     void handleTables(std::ifstream& database_file);
 };
-
-#endif

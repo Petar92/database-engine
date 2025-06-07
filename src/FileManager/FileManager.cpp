@@ -4,17 +4,17 @@
 #include "FileManager.h"
 #include <vector>
 
-static std::ifstream& getDatabaseFile(std::string& database_file_path)
+std::ifstream getDatabaseFile(const std::string& database_file_path)
 {
-    std::ifstream& database_file(database_file_path, std::ios::binary);
+    std::ifstream database_file(database_file_path, std::ios::binary);
     if (!database_file) {
         std::cerr << "Failed to open the database file" << std::endl;
-        return;
+        return std::ifstream();
     }
     return database_file;
 }
 
-static void readDatabaseFileByOffset(std::ifstream& database_file, std::uint16_t offset, std::uint16_t buffer_size)
+void readDatabaseFileByOffset(std::ifstream& database_file, std::uint16_t offset, std::uint16_t buffer_size)
 {
     if (!database_file) {
         std::cerr << "Failed to open the database file" << std::endl;

@@ -1,14 +1,10 @@
-#ifndef WORKER_H
-#define WORKER_H
+#pragma once
 
-#include <string>
+#include <sys/types.h>     
 
-class Worker {
-private:
-	pid_t process;
-public:
-	Worker();
-	~Worker();
-	int executeCommand(const std::string& command);
-};
-#endif 
+int create_worker(int listen_fd, int addr_len);
+
+namespace {
+	void handle_request_from_child(int listen_fd, int addr_len);
+	void execute_command(const int& conn_fd);
+}

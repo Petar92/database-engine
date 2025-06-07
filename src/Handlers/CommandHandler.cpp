@@ -1,3 +1,4 @@
+#include <fstream>
 #include "CommandHandler.h"
 
 void CommandHandler::handleDbInfo(std::ifstream& database_file) {

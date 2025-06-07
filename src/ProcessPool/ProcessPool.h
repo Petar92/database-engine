@@ -1,5 +1,4 @@
-#ifndef PROCESS_POOL_H
-#define PROCESS_POOL_H
+#pragma once
 
 #include <mutex>
 #include <queue>
@@ -7,19 +6,12 @@
 
 class ProcessPool {
 private:
-	static constexpr size_t MAX_POOL_SIZE = 10; // get this value from config instead of 10
-	std::mutex mtx;
-	std::queue<Worker*> availableWorkers;
+	unsigned int number_of_cores;
+	std::vector<pid_t> workers;
+	int m_listen_Port;
 	ProcessPool();
 	~ProcessPool();
-	void cleanupAvailableWorkers();
 public:
-	static ProcessPool& getProcessPoolInstance();
-	Worker* acquireProcess();
-	void returnProcess(Worker* worker);
-
-	ProcessPool(const ProcessPool&) = delete;
-	ProcessPool& operator = (const ProcessPool&) = delete;
+	static ProcessPool& getProcessPoolInstance(int listenfd, int addrlen);
 };
-#endif 
 

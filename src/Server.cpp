@@ -1,6 +1,7 @@
 #include <iostream>
 #include <thread>
-#include "ProcessPool.h"
+#include <string>
+#include "ProcessPool/ProcessPool.h"
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
@@ -8,7 +9,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    uint16_t port = std::static_pointer_cast(argv[i]);
+    uint16_t port = static_cast<uint16_t>(std::stoi(argv[1]));
 
     ProcessPool::getProcessPoolInstance(port);
 

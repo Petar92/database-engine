@@ -1,17 +1,18 @@
 #pragma once
 
-#include <mutex>
-#include <queue>
-#include "Worker.h"
+#include <iostream>
+#include <vector>
+#include "ProcessPool.h"
 
 class ProcessPool {
 private:
 	unsigned int number_of_cores;
-	std::vector<pid_t> workers;
+	int available_cores;
+	std::vector<std::thread> workers;
 	int m_listen_Port;
 	ProcessPool();
 	~ProcessPool();
 public:
-	static ProcessPool& getProcessPoolInstance(int listenfd, int addrlen);
+	static ProcessPool& getProcessPoolInstance(uint16_t port);
 };
 

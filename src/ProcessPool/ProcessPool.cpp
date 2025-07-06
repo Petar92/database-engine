@@ -1,19 +1,11 @@
 #include <iostream>
 #include "ProcessPool.h"
-#include "Worker.h"
-
-#ifdef _WIN32
-	#include <windows.h>
-	typedef DWORD pid_t;
-	#define getpid GetCurrentProcessId
-#else
-	#include <sys/types.h>
-#endif
-#include <boost/asio/io_context.hpp>
-#include <boost/asio/signal_set.hpp>
+#include <pthread.h>
+#include <sched.h>
 
 unsigned int number_of_cores = std::thread::hardware_concurrency();
-std::vector<pid_t> workers;
+int available_cores;
+std::vector<std::thread> workers;
 int m_listen_Port;
 
 ProcessPool::ProcessPool() {
@@ -22,14 +14,26 @@ ProcessPool::ProcessPool() {
 			std::cout << "Could not detect number of cores, assuming 1" << std::endl;
 			number_of_cores = 1;
 		}
-		boost::asio::io_context io_context(1);
+		available_cores = number_of_cores;
+		int current_core = 0;
 		for (int i = 0; i < number_of_cores; i++) {
-			workers[i] = create_worker(m_listen_Port, io_context);
+			std::atomic<bool> shouldStop{false};
+			std::thread thread(execute_command, available_cores, i, std::ref(shouldStop));
+			cpu_set_t cpu_set;
+			CPU_ZERO(&cpu_set);
+			CPU_SET(i, &cpu_set);
+			if (pthread_setaffinity_np(thread.native_handle(), sizeof(cpu_set), &cpu_set) > 0) {
+				available_cores--;
+				shouldStop = true;
+        		thread.join();
+			}
+			else {
+				thread.join();
+				std::cout << "Thread " << i << " set to core " << current_core << std::endl;
+				workers[current_core] = thread;
+				current_core++;
+			}
 		}
-		boost::asio::signal_set signals(io_context, SIGINT, SIGTERM);
-		signals.async_wait([&](auto, auto) { io_context.stop(); });
-
-		io_context.run();
 	}
 	catch (std::exception& e)
 	{

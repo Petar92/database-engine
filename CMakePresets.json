@@ -1,24 +1,46 @@
 {
-  "version": 3,
-  "configurePresets": [
-    {
-      "name": "windows",
-      "displayName": "Build on Windows (VS2022 + vcpkg)",
-      "generator": "Visual Studio 17 2022",
-      "architecture": "x64",
-      "binaryDir": "${sourceDir}/build-win",
-      "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
-      }
-    },
-    {
-      "name": "wsl",
-      "displayName": "Build on WSL (Makefiles + vcpkg)",
-      "generator": "Unix Makefiles",
-      "binaryDir": "${sourceDir}/build-wsl",
-      "cacheVariables": {
-        "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/vcpkg/scripts/buildsystems/vcpkg.cmake"
-      }
-    }
-  ]
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "Default Config",
+            "description": "Default build using system dependencies",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+            }
+        },
+        {
+            "name": "debug",
+            "displayName": "Debug Config",
+            "description": "Debug build with symbols",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "conan",
+            "displayName": "Conan Config",
+            "description": "Build with Conan dependencies",
+            "inherits": "default",
+            "toolchainFile": "${sourceDir}/build/conan_toolchain.cmake"
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "default",
+            "configurePreset": "default"
+        },
+        {
+            "name": "debug",
+            "configurePreset": "debug"
+        },
+        {
+            "name": "conan",
+            "configurePreset": "conan"
+        }
+    ]
 }

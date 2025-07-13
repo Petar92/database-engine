@@ -1,57 +1,47 @@
-# Database files used for testing
-*.db
+# Build directories
+build/
+cmake-build-*/
 
-# Prerequisites
-*.d
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Conan
+conandata.yml
+conaninfo.txt
+conanbuildinfo.*
+conan.lock
 
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
+# OS
+.DS_Store
+Thumbs.db
 
 # Executables
 *.exe
 *.out
 *.app
-server
+MyProject
+
+# Libraries
+*.so
+*.dylib
+*.a
+
+# Object files
+*.o
+*.obj
 
 # CMake
-CMakeLists.txt.user
 CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
+CMakeFiles/
 cmake_install.cmake
-install_manifest.txt
+Makefile
+*.cmake
+!CMakeLists.txt
+!**/CMakeLists.txt
+
+# Compile commands
 compile_commands.json
-CTestTestfile.cmake
-_deps
-
-build/
-vcpkg_installed
-
-build-wsl/
-build-win/
-
-.vs/

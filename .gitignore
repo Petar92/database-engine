@@ -45,3 +45,5 @@ Makefile
 
 # Compile commands
 compile_commands.json
+
+vcpkg/
